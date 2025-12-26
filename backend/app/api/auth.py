@@ -72,7 +72,7 @@ async def callback(
         user.email = github_user.email
     
     await db.commit()
-    await db.refresh(User)
+    await db.refresh(user)
 
     access_token = create_access_token(
         data={"user_id": user.id, "github_id": user.github_id}
