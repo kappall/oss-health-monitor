@@ -1,6 +1,6 @@
+from datetime import datetime, timezone
 from sqlalchemy import Column, Integer, String, Text, Float, DateTime, ForeignKey, Enum
 from sqlalchemy.orm import relationship
-from datetime import datetime
 from app.db.database import Base
 import enum
 
@@ -28,8 +28,8 @@ class Project(Base):
     # Metadata
     last_analyzed_at = Column(DateTime, nullable=True)
     is_favorited = Column(Integer, default=0)  # Count of favorites
-    created_at = Column(DateTime, default=datetime.now(datetime.timezone.utc))
-    updated_at = Column(DateTime, default=datetime.now(datetime.timezone.utc), onupdate=datetime.now(datetime.timezone.utc))
+    created_at = Column(DateTime(), default=datetime.now(timezone.utc))
+    updated_at = Column(DateTime(), default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 
     user = relationship("User", back_populates="projects")
     analyses = relationship("Analysis", back_populates="project", cascade="all, delete-orphan")
