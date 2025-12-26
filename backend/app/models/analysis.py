@@ -1,6 +1,6 @@
+from datetime import datetime, timezone
 from sqlalchemy import Column, Integer, String, Text, Float, DateTime, ForeignKey, JSON
 from sqlalchemy.orm import relationship
-from datetime import datetime
 from app.db.database import Base
 
 class Analysis(Base):
@@ -33,7 +33,7 @@ class Analysis(Base):
     # Raw data storage
     raw_data = Column(JSON, nullable=True)
     
-    analyzed_at = Column(DateTime, default=datetime.now(datetime.timezone.utc))
-    created_at = Column(DateTime, default=datetime.now(datetime.timezone.utc))
+    analyzed_at = Column(DateTime(), default=datetime.now(timezone.utc))
+    created_at = Column(DateTime(), default=datetime.now(timezone.utc))
 
     project = relationship("Project", back_populates="analyses")
