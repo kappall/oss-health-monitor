@@ -1,7 +1,7 @@
 import asyncio
 import logging
 import re
-from typing import Dict, Any, Optional, Tuple
+from typing import Dict, Any, Tuple
 
 import httpx
 from datetime import datetime
@@ -20,7 +20,7 @@ class GitHubAdapter:
     DEFAULT_RETRIES = getattr(settings, "HTTP_MAX_RETRIES", 3)
     PER_PAGE = getattr(settings, "GITHUB_PER_PAGE", 100)
 
-    def __init__(self, access_token: Optional[str] = None):
+    def __init__(self, access_token: str | None = None):
         self.access_token = access_token or settings.GITHUB_API_TOKEN
         self.headers = {
             "Accept": "application/vnd.github+json",
@@ -35,7 +35,7 @@ class GitHubAdapter:
     async def aclose(self) -> None:
         await self.client.aclose()
 
-    async def _request(self, method: str, path: str, params: dict | None = None, **kwargs) -> Optional[httpx.Response]:
+    async def _request(self, method: str, path: str, params: dict | None = None, **kwargs) -> httpx.Response | None:
         url = f"{self.BASE_URL}{path}"
         backoff = 1.0
         for _ in range(self.DEFAULT_RETRIES):
@@ -60,7 +60,7 @@ class GitHubAdapter:
         logger.error("Max retries exceeded for %s %s", method, url)
         return None
 
-    def _extract_total_from_link(self, link_header: str) -> Optional[int]:
+    def _extract_total_from_link(self, link_header: str) -> int | None:
         if not link_header:
             return None
         match = re.search(r'page=(\d+)>;\s*rel="last"', link_header)
@@ -84,7 +84,7 @@ class GitHubAdapter:
         # fallback: number of items returned (small repos / single page)
         return len(resp.json() or [])
 
-    async def get_repository_info(self, owner: str, repo: str) -> Optional[Dict[str, Any]]:
+    async def get_repository_info(self, owner: str, repo: str) -> Dict[str, Any] | None:
         resp = await self._request("GET", f"/repos/{owner}/{repo}")
         if resp:
             return resp.json()
@@ -124,7 +124,7 @@ class GitHubAdapter:
         return None
 
     @staticmethod
-    def parse_github_url(url: str) -> Optional[Tuple[str, str]]:
+    def parse_github_url(url: str) -> Tuple[str, str] | None:
         """Parse GitHub URL to extract owner and repo"""
         try:
             u = url.strip().strip("<>").rstrip("/").replace(".git", "")
