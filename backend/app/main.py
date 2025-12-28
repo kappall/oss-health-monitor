@@ -1,9 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
+from app.core.logging_config import configure_logging
 from app.db.database import Base, engine
 from app.api.auth import router as auth_router
 from contextlib import asynccontextmanager
+
+configure_logging()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
