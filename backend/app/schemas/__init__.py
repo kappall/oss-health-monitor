@@ -7,6 +7,12 @@ from app.schemas.project import (
     ProjectResponse,
     ProjectListResponse
 )
+from app.schemas.analysis import (
+    AnalysisMetrics,
+    AnalysisScores,
+    AnalysisResponse,
+    AnalysisExplanation
+)
 
 __all__ = [
     "Token",
@@ -21,4 +27,8 @@ __all__ = [
     "ProjectUpdate",
     "ProjectResponse",
     "ProjectListResponse",
+    "AnalysisMetrics",
+    "AnalysisScores",
+    "AnalysisResponse",
+    "AnalysisExplanation",
 ]
