@@ -25,10 +25,10 @@ class Project(Base):
     overall_risk_level = Column(String(50), nullable=True)  # "low", "medium", "high"
     
     # Metadata
-    last_analyzed_at = Column(DateTime, nullable=True)
+    last_analyzed_at = Column(DateTime(timezone=True), nullable=True)
     is_favorited = Column(Integer, default=0)  # Count of favorites
-    created_at = Column(DateTime(), server_default=func.now(), nullable=False)
-    updated_at = Column(DateTime(), server_default=func.now(), nullable=False, onupdate=func.now())
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False, onupdate=func.now())
 
     user = relationship("User", back_populates="projects")
     analyses = relationship("Analysis", back_populates="project", cascade="all, delete-orphan")
