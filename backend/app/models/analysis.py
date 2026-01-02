@@ -23,7 +23,8 @@ class Analysis(Base):
     critical_vulnerabilities = Column(Integer, default=0)
     high_vulnerabilities = Column(Integer, default=0)
     medium_vulnerabilities = Column(Integer, default=0)
-    
+    low_vulnerabilities = Column(Integer, default=0)
+
     # Scores
     maintenance_score = Column(Float, nullable=True)
     activity_score = Column(Float, nullable=True)
@@ -53,6 +54,7 @@ class Analysis(Base):
             "critical_vulnerabilities": self.critical_vulnerabilities,
             "high_vulnerabilities": self.high_vulnerabilities,
             "medium_vulnerabilities": getattr(self, "medium_vulnerabilities", None),
+            "low_vulnerabilities": getattr(self, "low_vulnerabilities", None),
         }
 
     @property
