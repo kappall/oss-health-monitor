@@ -1,0 +1,13 @@
+<div class="callback-container">
+    <mat-progress-spinner
+      *ngIf="isLoading()"
+      diameter="50"
+      mode="indeterminate"
+      class="spinner">
+    </mat-progress-spinner>
+  
+    <p *ngIf="!isLoading() && error()" class="error-message">
+      {{ error() }}
+    </p>
+  </div>
+  
