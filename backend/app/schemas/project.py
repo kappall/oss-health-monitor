@@ -1,5 +1,4 @@
 from pydantic import BaseModel, HttpUrl, field_validator
-from typing import Optional
 from datetime import datetime
 from app.models.project import ProjectType
 from urllib.parse import urlparse
@@ -57,15 +56,15 @@ class ProjectResponse(BaseModel):
     id: int
     user_id: int
     name: str
-    description: Optional[str] = None
+    description: str | None = None
     repository_url: str
     project_type: ProjectType
-    maintenance_score: Optional[float] = None
-    activity_score: Optional[float] = None
-    security_score: Optional[float] = None
-    overall_risk_level: Optional[str] = None
-    last_analyzed_at: Optional[datetime] = None
-    is_favorited: int
+    maintenance_score: float | None = None
+    activity_score: float | None = None
+    security_score: float | None = None
+    overall_risk_level: str | None = None
+    last_analyzed_at: datetime | None = None
+    favorites_count: int
     created_at: datetime
     updated_at: datetime
 

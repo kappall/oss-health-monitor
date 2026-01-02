@@ -26,7 +26,7 @@ class Project(Base):
     
     # Metadata
     last_analyzed_at = Column(DateTime(timezone=True), nullable=True)
-    is_favorited = Column(Integer, default=0)  # Count of favorites
+    favorites_count = Column(Integer, nullable=False, server_default="0", default=0)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False, onupdate=func.now())
 

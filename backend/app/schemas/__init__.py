@@ -13,6 +13,17 @@ from app.schemas.analysis import (
     AnalysisResponse,
     AnalysisExplanation
 )
+from app.schemas.dashboard import (
+    DashboardSummary,
+    ProjectScoreHistory,
+    TimelineDataPoint,
+    VulnerabilitySummary
+)
+from app.schemas.favorite import (
+    FavoriteCreate,
+    FavoriteResponse,
+    FavoriteProjectResponse
+)
 
 __all__ = [
     "Token",
@@ -31,4 +42,11 @@ __all__ = [
     "AnalysisScores",
     "AnalysisResponse",
     "AnalysisExplanation",
+    "DashboardSummary",
+    "ProjectScoreHistory",
+    "TimelineDataPoint",
+    "VulnerabilitySummary",
+    "FavoriteCreate",
+    "FavoriteResponse",
+    "FavoriteProjectResponse",
 ]
